@@ -43,13 +43,13 @@ public class JwtTokenProvider {
                 .setSubject(personalId)
                 .claim("role", userClassification.toString()) // 역할군 추가
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_MS))
+                .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
                 .signWith(key, SignatureAlgorithm.HS256) // key
                 .compact();
     }
     @PostConstruct
     public void init() {
-        this.key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
+        this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 
     }
 
